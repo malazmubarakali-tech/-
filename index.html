@@ -14,12 +14,10 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="style.css">
     <link rel="manifest" href="manifest.json">
-<link rel="apple-touch-icon" href="icon-192.png">
-    <!-- ✅ يمنع ظهور أي شيء حتى يقرر السكربت أي شاشة يعرض -->
+    <link rel="apple-touch-icon" href="icon-192.png">
     <style>
         body{visibility:hidden;}
         
-        /* ✅ أنماط PWA الإضافية */
         .install-banner {
             position: fixed;
             top: 0;
@@ -132,43 +130,39 @@
             50% { box-shadow: 0 14px 38px rgba(255,71,87,0.6), 0 0 0 12px rgba(255,107,107,0.08); }
         }
 
-  /* ✅ زر تيليغرام */
-        .telegram-channel-btn {
+        /* ===== زر تيليغرام ثابت في الأسفل ===== */
+        .tg-btn-wrapper {
             position: fixed;
-            bottom: calc(80px + env(safe-area-inset-bottom, 0px));
+            bottom: calc(64px + env(safe-area-inset-bottom, 0px) + 10px);
             left: 50%;
             transform: translateX(-50%);
+            z-index: 997;
+            pointer-events: auto;
+        }
+        .telegram-channel-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
             background: linear-gradient(135deg, #1a1a2e 0%, #2d2d4a 100%);
             color: #ff6b9d;
-            border: 2.5px solid #ff6b9d;
-            padding: 12px 22px;
+            border: 2px solid #ff6b9d;
+            padding: 10px 20px;
             border-radius: 999px;
             font-family: 'Tajawal', sans-serif;
             font-weight: 700;
             font-size: 13px;
             cursor: pointer;
             text-decoration: none;
-            text-align: center;
             white-space: nowrap;
-            box-shadow: 0 8px 24px rgba(255,107,157,0.25), 0 2px 0 #ff6b9d;
-            animation: tgBounce 2.2s ease-in-out infinite;
-            z-index: 998;
+            box-shadow: 0 4px 20px rgba(255,107,157,0.35), 0 2px 0 rgba(255,107,157,0.5);
+            animation: tgFloat 2.4s ease-in-out infinite;
         }
         .telegram-channel-btn:active {
-            box-shadow: 0 3px 12px rgba(255,107,157,0.3);
+            opacity: 0.85;
         }
-        @keyframes tgBounce {
-            0%, 100% { transform: translateX(-50%) translateY(0px); }
-            50%       { transform: translateX(-50%) translateY(-6px); }
-            }
-        }
-        .telegram-channel-btn:active {
-            transform: scale(0.95) translateY(2px);
-            box-shadow: 0 3px 12px rgba(255,107,157,0.3), 0 1px 0 #ff6b9d;
-        }
-        @keyframes tgBounce {
-            0%, 100% { transform: translateY(0px); box-shadow: 0 8px 24px rgba(255,107,157,0.25), 0 2px 0 #ff6b9d; }
-            50%       { transform: translateY(-7px); box-shadow: 0 16px 32px rgba(255,107,157,0.35), 0 2px 0 #ff6b9d; }
+        @keyframes tgFloat {
+            0%, 100% { transform: translateY(0px); }
+            50%       { transform: translateY(-6px); }
         }
     </style>
 </head>
@@ -186,6 +180,13 @@
     
     <!-- ========== زر تثبيت PWA العائم ========== -->
     <button class="floating-install-btn" id="floatingInstallBtn" onclick="triggerInstall()">⬇️ تثبيت التطبيق</button>
+
+    <!-- ========== زر تيليغرام الثابت ========== -->
+    <div class="tg-btn-wrapper">
+        <a href="https://t.me/korean_with_luna" target="_blank" class="telegram-channel-btn">
+            📢 إنضم لقناتي لرؤية التحديثات
+        </a>
+    </div>
 
     <!-- ========== الشريط السفلي الثابت ========== -->
     <nav class="app-navigation-bar" id="bottomNav">
@@ -223,7 +224,6 @@
                     <div class="card-main-body"><div class="media-badge"><i class="fa-regular fa-comments"></i></div><div class="card-text-details"><h3>الدردشة الكورية</h3><p>تعبيرات الشباب في الدردشة</p></div></div>
                     <button class="action-button">ابدأ</button>
                 </div>
-                <!-- بطاقة القراءة بعد التعديل -->
                 <div class="custom-card bg-read" onclick="openReading()">
                     <div class="card-main-body">
                         <div class="media-badge"><i class="fa-solid fa-book-bookmark"></i></div>
@@ -343,159 +343,106 @@
             <div id="content" class="container"></div>
         </div>
 
-        <!-- ========== شاشات القصص التفصيلية (0-9) ========== -->
-        <!-- القصة 0: الكنة المطلقة للريح -->
+        <!-- القصة 0 -->
         <div class="story-view-screen" id="story-screen-0" style="display:none;">
             <div class="back-btn" onclick="switchToStoriesList()"><i class="fa-solid fa-arrow-right"></i> رجوع</div>
             <h1 style="text-align:center;font-weight:900;">💨 방귀쟁이 며느리</h1>
             <div class="listen-btn" id="audioBtn0" onclick="toggleAudio(0)"><span id="btnContent0"><i class="fa-solid fa-play"></i> <span>تشغيل الصوت</span></span></div>
             <div class="tts-status" id="ttsStatus0"></div>
             <div class="story-container" id="storyText0"></div>
-            <div class="lesson">
-                <strong>📌 الدرس المستفاد من القصة</strong><br>
-                الصدق والطبيعة هما أساس الراحة، فكتمان الأمور الطبيعية قد يسبب ضرراً أكبر.<br>
-                الكنة المسكينة عانت طويلاً بسبب خجلها، لكن عندما تحررت من هذا القيد، اكتشف الجميع أن ما كانت تخفيه يمكن أن يكون نعمة ومصدر فخر.<br>
-                المغزى: لا تخجل من طبيعتك، فما تعتبره عيباً قد يكون مصدر قوتك الحقيقية.
-            </div>
+            <div class="lesson"><strong>📌 الدرس المستفاد من القصة</strong><br>الصدق والطبيعة هما أساس الراحة، فكتمان الأمور الطبيعية قد يسبب ضرراً أكبر.<br>الكنة المسكينة عانت طويلاً بسبب خجلها، لكن عندما تحررت من هذا القيد، اكتشف الجميع أن ما كانت تخفيه يمكن أن يكون نعمة ومصدر فخر.<br>المغزى: لا تخجل من طبيعتك، فما تعتبره عيباً قد يكون مصدر قوتك الحقيقية.</div>
             <div class="action-button-done" onclick="completeStoryAndGoBack()">لقد أنهيت القصة بنجاح! 🎉</div>
         </div>
-        <!-- القصة 1: الأرنب والسلحفاة -->
+        <!-- القصة 1 -->
         <div class="story-view-screen" id="story-screen-1" style="display:none;">
             <div class="back-btn" onclick="switchToStoriesList()"><i class="fa-solid fa-arrow-right"></i> رجوع</div>
             <h1 style="text-align:center;font-weight:900;">🐰🐢 토끼와 거북이</h1>
             <div class="listen-btn" id="audioBtn1" onclick="toggleAudio(1)"><span id="btnContent1"><i class="fa-solid fa-play"></i> <span>تشغيل الصوت</span></span></div>
             <div class="tts-status" id="ttsStatus1"></div>
             <div class="story-container" id="storyText1"></div>
-            <div class="lesson">
-                <strong>📌 الدرس المستفاد من القصة</strong><br>
-                النجاح لا يحتاج سرعة… يحتاج استمرار.<br>
-                السلحفاة ما فازت لأنها خارقة. فازت لأنها كانت تمشي حتى لما ما كان أحد شايفها.<br>
-                المغزى: اللي يكمل للنهاية يفوز… مو اللي يبدأ بسرعة ويغفل في الطريق.
-            </div>
+            <div class="lesson"><strong>📌 الدرس المستفاد من القصة</strong><br>النجاح لا يحتاج سرعة… يحتاج استمرار.<br>السلحفاة ما فازت لأنها خارقة. فازت لأنها كانت تمشي حتى لما ما كان أحد شايفها.<br>المغزى: اللي يكمل للنهاية يفوز… مو اللي يبدأ بسرعة ويغفل في الطريق.</div>
             <div class="action-button-done" onclick="completeStoryAndGoBack()">لقد أنهيت القصة بنجاح! 🎉</div>
         </div>
-        <!-- القصة 2: هونغبو ونولبو -->
+        <!-- القصة 2 -->
         <div class="story-view-screen" id="story-screen-2" style="display:none;">
             <div class="back-btn" onclick="switchToStoriesList()"><i class="fa-solid fa-arrow-right"></i> رجوع</div>
             <h1 style="text-align:center;font-weight:900;">🐦 흥부와 놀부</h1>
             <div class="listen-btn" id="audioBtn2" onclick="toggleAudio(2)"><span id="btnContent2"><i class="fa-solid fa-play"></i> <span>تشغيل الصوت</span></span></div>
             <div class="tts-status" id="ttsStatus2"></div>
             <div class="story-container" id="storyText2"></div>
-            <div class="lesson">
-                <strong>📌 الدرس المستفاد من القصة</strong><br>
-                الطيب والخير يرجعان لصاحبهما دائماً، أما الطمع والجشع فلا يجلبان إلا الخسارة.<br>
-                흥부 (هُنغبو) ساعد عصفوراً صغيراً بقلب نقي فكافأته الحياة بالثراء الكافي والأمان.<br>
-                المغزى: ازرع الخير بنية صادقة ولا تحسد الآخرين، فالقناعة كنز والطمع يفسد كل شيء.
-            </div>
+            <div class="lesson"><strong>📌 الدرس المستفاد من القصة</strong><br>الطيب والخير يرجعان لصاحبهما دائماً، أما الطمع والجشع فلا يجلبان إلا الخسارة.<br>흥부 (هُنغبو) ساعد عصفوراً صغيراً بقلب نقي فكافأته الحياة بالثراء الكافي والأمان.<br>المغزى: ازرع الخير بنية صادقة ولا تحسد الآخرين، فالقناعة كنز والطمع يفسد كل شيء.</div>
             <div class="action-button-done" onclick="completeStoryAndGoBack()">لقد أنهيت القصة بنجاح! 🎉</div>
         </div>
-        <!-- القصة 3: الأرنب والنمر -->
+        <!-- القصة 3 -->
         <div class="story-view-screen" id="story-screen-3" style="display:none;">
             <div class="back-btn" onclick="switchToStoriesList()"><i class="fa-solid fa-arrow-right"></i> رجوع</div>
             <h1 style="text-align:center;font-weight:900;">🐰🐯 토끼와 호랑이</h1>
             <div class="listen-btn" id="audioBtn3" onclick="toggleAudio(3)"><span id="btnContent3"><i class="fa-solid fa-play"></i> <span>تشغيل الصوت</span></span></div>
             <div class="tts-status" id="ttsStatus3"></div>
             <div class="story-container" id="storyText3"></div>
-            <div class="lesson">
-                <strong>📌 الدرس المستفاد من القصة</strong><br>
-                القوة البدنية وحدها لا تكفي إذا غاب العقل والتفكير اللماح.<br>
-                الأرنب الصغير استطاع النجاة من النمر المفترس ليس لأنه أقوى، بل لأنه استخدم ذكاءه وهدوءه في وقت الشدة.<br>
-                المغزى: لا تخف من المشاكل الكبيرة، فالحيلة الذكية والهدوء يمكنهما هزيمة أي خطر تواجهه.
-            </div>
+            <div class="lesson"><strong>📌 الدرس المستفاد من القصة</strong><br>القوة البدنية وحدها لا تكفي إذا غاب العقل والتفكير اللماح.<br>الأرنب الصغير استطاع النجاة من النمر المفترس ليس لأنه أقوى، بل لأنه استخدم ذكاءه وهدوءه في وقت الشدة.<br>المغزى: لا تخف من المشاكل الكبيرة، فالحيلة الذكية والهدوء يمكنهما هزيمة أي خطر تواجهه.</div>
             <div class="action-button-done" onclick="completeStoryAndGoBack()">لقد أنهيت القصة بنجاح! 🎉</div>
         </div>
-        <!-- القصة 4: ينبوع الشباب السحري -->
+        <!-- القصة 4 -->
         <div class="story-view-screen" id="story-screen-4" style="display:none;">
             <div class="back-btn" onclick="switchToStoriesList()"><i class="fa-solid fa-arrow-right"></i> رجوع</div>
             <h1 style="text-align:center;font-weight:900;">💧 젊어지는 샘물</h1>
             <div class="listen-btn" id="audioBtn4" onclick="toggleAudio(4)"><span id="btnContent4"><i class="fa-solid fa-play"></i> <span>تشغيل الصوت</span></span></div>
             <div class="tts-status" id="ttsStatus4"></div>
             <div class="story-container" id="storyText4"></div>
-            <div class="lesson">
-                <strong>📌 الدرس المستفاد من القصة</strong><br>
-                الطمع والجشع دائماً ما يؤديان إلى نتائج عكسية ومضحكة أحياناً!<br>
-                الزوجان الطيبان أخذا من ينبوع الشباب ما يكفيهما فقط ليعيشا بصحة وسعادة، بينما العجوز الطماع أراد أن يأخذ كل شيء فخسر كل شيء حتى عمره وعقله.<br>
-                المغزى: القناعة كنز لا يفنى، وخذ من الدنيا ما يكفيك ولا تبالغ.
-            </div>
+            <div class="lesson"><strong>📌 الدرس المستفاد من القصة</strong><br>الطمع والجشع دائماً ما يؤديان إلى نتائج عكسية ومضحكة أحياناً!<br>الزوجان الطيبان أخذا من ينبوع الشباب ما يكفيهما فقط ليعيشا بصحة وسعادة، بينما العجوز الطماع أراد أن يأخذ كل شيء فخسر كل شيء حتى عمره وعقله.<br>المغزى: القناعة كنز لا يفنى، وخذ من الدنيا ما يكفيك ولا تبالغ.</div>
             <div class="action-button-done" onclick="completeStoryAndGoBack()">لقد أنهيت القصة بنجاح! 🎉</div>
         </div>
-        <!-- القصة 5: بيضة الحمار -->
+        <!-- القصة 5 -->
         <div class="story-view-screen" id="story-screen-5" style="display:none;">
             <div class="back-btn" onclick="switchToStoriesList()"><i class="fa-solid fa-arrow-right"></i> رجوع</div>
             <h1 style="text-align:center;font-weight:900;">🍉 당나귀 알</h1>
             <div class="listen-btn" id="audioBtn5" onclick="toggleAudio(5)"><span id="btnContent5"><i class="fa-solid fa-play"></i> <span>تشغيل الصوت</span></span></div>
             <div class="tts-status" id="ttsStatus5"></div>
             <div class="story-container" id="storyText5"></div>
-            <div class="lesson">
-                <strong>📌 الدرس المستفاد من القصة</strong><br>
-                السذاجة الزائدة قد تجعل الإنسان أضحوكة بين الناس.<br>
-                الشاب القروي دفع مبلغاً كبيراً لشراء بطيخة ظناً أنها بيضة حمار، ثم طارد أرنباً معتقداً أنه صغير الحمار.<br>
-                المغزى: العلم والمعرفة ضروريان قبل اتخاذ أي قرار، واسأل أهل الخبرة قبل أن تنخدع.
-            </div>
+            <div class="lesson"><strong>📌 الدرس المستفاد من القصة</strong><br>السذاجة الزائدة قد تجعل الإنسان أضحوكة بين الناس.<br>الشاب القروي دفع مبلغاً كبيراً لشراء بطيخة ظناً أنها بيضة حمار، ثم طارد أرنباً معتقداً أنه صغير الحمار.<br>المغزى: العلم والمعرفة ضروريان قبل اتخاذ أي قرار، واسأل أهل الخبرة قبل أن تنخدع.</div>
             <div class="action-button-done" onclick="completeStoryAndGoBack()">لقد أنهيت القصة بنجاح! 🎉</div>
         </div>
-        <!-- القصة 6: الطاحونة السحرية -->
+        <!-- القصة 6 -->
         <div class="story-view-screen" id="story-screen-6" style="display:none;">
             <div class="back-btn" onclick="switchToStoriesList()"><i class="fa-solid fa-arrow-right"></i> رجوع</div>
             <h1 style="text-align:center;font-weight:900;">🧂 요술 맷돌</h1>
             <div class="listen-btn" id="audioBtn6" onclick="toggleAudio(6)"><span id="btnContent6"><i class="fa-solid fa-play"></i> <span>تشغيل الصوت</span></span></div>
             <div class="tts-status" id="ttsStatus6"></div>
             <div class="story-container" id="storyText6"></div>
-            <div class="lesson">
-                <strong>📌 الدرس المستفاد من القصة</strong><br>
-                الطمع والسرقة لا يجلبان إلا الهلاك، وأن ما تأخذه بغير حق سيغرقك في النهاية.<br>
-                اللص الطماع سرق الطاحونة السحرية وأراد الملح، لكنه لم يعرف كيف يوقفها فغرقت سفينته.<br>
-                المغزى: القناعة راحة، والطمع هلاك، ولا تأخذ شيئاً ليس من حقك.
-            </div>
+            <div class="lesson"><strong>📌 الدرس المستفاد من القصة</strong><br>الطمع والسرقة لا يجلبان إلا الهلاك، وأن ما تأخذه بغير حق سيغرقك في النهاية.<br>اللص الطماع سرق الطاحونة السحرية وأراد الملح، لكنه لم يعرف كيف يوقفها فغرقت سفينته.<br>المغزى: القناعة راحة، والطمع هلاك، ولا تأخذ شيئاً ليس من حقك.</div>
             <div class="action-button-done" onclick="completeStoryAndGoBack()">لقد أنهيت القصة بنجاح! 🎉</div>
         </div>
-        <!-- القصة 7: محاكمة الأرنب -->
+        <!-- القصة 7 -->
         <div class="story-view-screen" id="story-screen-7" style="display:none;">
             <div class="back-btn" onclick="switchToStoriesList()"><i class="fa-solid fa-arrow-right"></i> رجوع</div>
             <h1 style="text-align:center;font-weight:900;">⚖️ 토끼의 재판</h1>
             <div class="listen-btn" id="audioBtn7" onclick="toggleAudio(7)"><span id="btnContent7"><i class="fa-solid fa-play"></i> <span>تشغيل الصوت</span></span></div>
             <div class="tts-status" id="ttsStatus7"></div>
             <div class="story-container" id="storyText7"></div>
-            <div class="lesson">
-                <strong>📌 الدرس المستفاد من القصة</strong><br>
-                الذكاء ينتصر على القوة الغاشمة، والتروي والحكمة ينقذان من المواقف الصعبة.<br>
-                الأرنب الذكي استخدم حيلة بسيطة لإعادة النمر إلى الحفرة التي خرج منها، وأنقذ المسافر الطيب.<br>
-                المغزى: العقل هو أقوى سلاح، والذكاء في التصرف ينقذك من أصعب المواقف.
-            </div>
+            <div class="lesson"><strong>📌 الدرس المستفاد من القصة</strong><br>الذكاء ينتصر على القوة الغاشمة، والتروي والحكمة ينقذان من المواقف الصعبة.<br>الأرنب الذكي استخدم حيلة بسيطة لإعادة النمر إلى الحفرة التي خرج منها، وأنقذ المسافر الطيب.<br>المغزى: العقل هو أقوى سلاح، والذكاء في التصرف ينقذك من أصعب المواقف.</div>
             <div class="action-button-done" onclick="completeStoryAndGoBack()">لقد أنهيت القصة بنجاح! 🎉</div>
         </div>
-        <!-- القصة 8: الديك والتاج -->
+        <!-- القصة 8 -->
         <div class="story-view-screen" id="story-screen-8" style="display:none;">
             <div class="back-btn" onclick="switchToStoriesList()"><i class="fa-solid fa-arrow-right"></i> رجوع</div>
             <h1 style="text-align:center;font-weight:900;">🐓 수탉과 왕관</h1>
             <div class="listen-btn" id="audioBtn8" onclick="toggleAudio(8)"><span id="btnContent8"><i class="fa-solid fa-play"></i> <span>تشغيل الصوت</span></span></div>
             <div class="tts-status" id="ttsStatus8"></div>
             <div class="story-container" id="storyText8"></div>
-            <div class="lesson">
-                <strong>📌 الدرس المستفاد من القصة</strong><br>
-                لا تنخدع بكلام المتملقين، وتعلم أن تميز أصدقاءك الحقيقيين من المنافقين.<br>
-                الديك خسر تاجه الجميل لأنه صدق كلام الثعلب المخادع وأعجب بمديحه الكاذب.<br>
-                المغزى: الغرور والثقة العمياء بالغرباء يؤديان إلى الخسارة، فكن حذراً ولا تصدق كل ما يقال.
-            </div>
+            <div class="lesson"><strong>📌 الدرس المستفاد من القصة</strong><br>لا تنخدع بكلام المتملقين، وتعلم أن تميز أصدقاءك الحقيقيين من المنافقين.<br>الديك خسر تاجه الجميل لأنه صدق كلام الثعلب المخادع وأعجب بمديحه الكاذب.<br>المغزى: الغرور والثقة العمياء بالغرباء يؤديان إلى الخسارة، فكن حذراً ولا تصدق كل ما يقال.</div>
             <div class="action-button-done" onclick="completeStoryAndGoBack()">لقد أنهيت القصة بنجاح! 🎉</div>
         </div>
-        <!-- القصة 9: الفئران والجرس -->
+        <!-- القصة 9 -->
         <div class="story-view-screen" id="story-screen-9" style="display:none;">
             <div class="back-btn" onclick="switchToStoriesList()"><i class="fa-solid fa-arrow-right"></i> رجوع</div>
             <h1 style="text-align:center;font-weight:900;">🐭 생쥐들과 방울</h1>
             <div class="listen-btn" id="audioBtn9" onclick="toggleAudio(9)"><span id="btnContent9"><i class="fa-solid fa-play"></i> <span>تشغيل الصوت</span></span></div>
             <div class="tts-status" id="ttsStatus9"></div>
             <div class="story-container" id="storyText9"></div>
-            <div class="lesson">
-                <strong>📌 الدرس المستفاد من القصة</strong><br>
-                أفضل الخطط لا قيمة لها إن لم توجد الشجاعة لتنفيذها.<br>
-                الفئران اجتمعت ووضعت خطة عبقرية لتعليق جرس في رقبة القط، لكن لم يتطوع أحد للتنفيذ.<br>
-                المغزى: التنظير سهل، لكن التنفيذ يحتاج شجاعة. لا تكتفِ بالكلام الجميل.
-            </div>
+            <div class="lesson"><strong>📌 الدرس المستفاد من القصة</strong><br>أفضل الخطط لا قيمة لها إن لم توجد الشجاعة لتنفيذها.<br>الفئران اجتمعت ووضعت خطة عبقرية لتعليق جرس في رقبة القط، لكن لم يتطوع أحد للتنفيذ.<br>المغزى: التنظير سهل، لكن التنفيذ يحتاج شجاعة. لا تكتفِ بالكلام الجميل.</div>
             <div class="action-button-done" onclick="completeStoryAndGoBack()">لقد أنهيت القصة بنجاح! 🎉</div>
         </div>
-
-        <!-- ========== شاشات قصص الرعب (10-19) ========== -->
         <!-- القصة 10 -->
         <div class="story-view-screen" id="story-screen-10" style="display:none;">
             <div class="back-btn" onclick="switchToStoriesList()"><i class="fa-solid fa-arrow-right"></i> رجوع</div>
@@ -503,10 +450,7 @@
             <div class="listen-btn" id="audioBtn10" onclick="toggleAudio(10)"><span id="btnContent10"><i class="fa-solid fa-play"></i> <span>تشغيل الصوت</span></span></div>
             <div class="tts-status" id="ttsStatus10"></div>
             <div class="story-container" id="storyText10"></div>
-            <div class="lesson">
-                <strong>📌 الدرس المستفاد من القصة</strong><br>
-                الرعب الحقيقي لا يأتي من الخارج، بل من أعماق النفس البشرية حين تفقد السيطرة على جسدها وعقلها.
-            </div>
+            <div class="lesson"><strong>📌 الدرس المستفاد من القصة</strong><br>الرعب الحقيقي لا يأتي من الخارج، بل من أعماق النفس البشرية حين تفقد السيطرة على جسدها وعقلها.</div>
             <div class="action-button-done" onclick="completeStoryAndGoBack()">لقد أنهيت القصة بنجاح! 🎉</div>
         </div>
         <!-- القصة 11 -->
@@ -516,10 +460,7 @@
             <div class="listen-btn" id="audioBtn11" onclick="toggleAudio(11)"><span id="btnContent11"><i class="fa-solid fa-play"></i> <span>تشغيل الصوت</span></span></div>
             <div class="tts-status" id="ttsStatus11"></div>
             <div class="story-container" id="storyText11"></div>
-            <div class="lesson">
-                <strong>📌 الدرس المستفاد من القصة</strong><br>
-                أحياناً يكون العقل البشري أعظم سجّان لنفسه، نبني أوهاماً كاملة لنحمي أنفسنا من حقيقة لا نستطيع مواجهتها.
-            </div>
+            <div class="lesson"><strong>📌 الدرس المستفاد من القصة</strong><br>أحياناً يكون العقل البشري أعظم سجّان لنفسه، نبني أوهاماً كاملة لنحمي أنفسنا من حقيقة لا نستطيع مواجهتها.</div>
             <div class="action-button-done" onclick="completeStoryAndGoBack()">لقد أنهيت القصة بنجاح! 🎉</div>
         </div>
         <!-- القصة 12 -->
@@ -529,10 +470,7 @@
             <div class="listen-btn" id="audioBtn12" onclick="toggleAudio(12)"><span id="btnContent12"><i class="fa-solid fa-play"></i> <span>تشغيل الصوت</span></span></div>
             <div class="tts-status" id="ttsStatus12"></div>
             <div class="story-container" id="storyText12"></div>
-            <div class="lesson">
-                <strong>📌 الدرس المستفاد من القصة</strong><br>
-                الخطر الحقيقي قد لا يكون خلف باب موصد، بل قد يكون أقرب إلينا مما نتصور... مختبئاً في الظلال داخل منازلنا.
-            </div>
+            <div class="lesson"><strong>📌 الدرس المستفاد من القصة</strong><br>الخطر الحقيقي قد لا يكون خلف باب موصد، بل قد يكون أقرب إلينا مما نتصور... مختبئاً في الظلال داخل منازلنا.</div>
             <div class="action-button-done" onclick="completeStoryAndGoBack()">لقد أنهيت القصة بنجاح! 🎉</div>
         </div>
         <!-- القصة 13 -->
@@ -542,10 +480,7 @@
             <div class="listen-btn" id="audioBtn13" onclick="toggleAudio(13)"><span id="btnContent13"><i class="fa-solid fa-play"></i> <span>تشغيل الصوت</span></span></div>
             <div class="tts-status" id="ttsStatus13"></div>
             <div class="story-container" id="storyText13"></div>
-            <div class="lesson">
-                <strong>📌 الدرس المستفاد من القصة</strong><br>
-                نعمة السمع قد تتحول إلى نقمة عندما تسمح لنا التكنولوجيا بسماع ما لم يُخلق لنا أن نسمعه.
-            </div>
+            <div class="lesson"><strong>📌 الدرس المستفاد من القصة</strong><br>نعمة السمع قد تتحول إلى نقمة عندما تسمح لنا التكنولوجيا بسماع ما لم يُخلق لنا أن نسمعه.</div>
             <div class="action-button-done" onclick="completeStoryAndGoBack()">لقد أنهيت القصة بنجاح! 🎉</div>
         </div>
         <!-- القصة 14 -->
@@ -555,10 +490,7 @@
             <div class="listen-btn" id="audioBtn14" onclick="toggleAudio(14)"><span id="btnContent14"><i class="fa-solid fa-play"></i> <span>تشغيل الصوت</span></span></div>
             <div class="tts-status" id="ttsStatus14"></div>
             <div class="story-container" id="storyText14"></div>
-            <div class="lesson">
-                <strong>📌 الدرس المستفاد من القصة</strong><br>
-                أكثر الأسئلة رعباً هو ذلك الذي يشكك في حقيقة وجودنا... هل نحن بشر حقيقيون أم مجرد سطور برمجية في محاكاة؟
-            </div>
+            <div class="lesson"><strong>📌 الدرس المستفاد من القصة</strong><br>أكثر الأسئلة رعباً هو ذلك الذي يشكك في حقيقة وجودنا... هل نحن بشر حقيقيون أم مجرد سطور برمجية في محاكاة؟</div>
             <div class="action-button-done" onclick="completeStoryAndGoBack()">لقد أنهيت القصة بنجاح! 🎉</div>
         </div>
         <!-- القصة 15 -->
@@ -568,10 +500,7 @@
             <div class="listen-btn" id="audioBtn15" onclick="toggleAudio(15)"><span id="btnContent15"><i class="fa-solid fa-play"></i> <span>تشغيل الصوت</span></span></div>
             <div class="tts-status" id="ttsStatus15"></div>
             <div class="story-container" id="storyText15"></div>
-            <div class="lesson">
-                <strong>📌 الدرس المستفاد من القصة</strong><br>
-                هناك عوالم وأبعاد تعيش بين طيات واقعنا، وقد نعبرها دون أن ندري... لكن الأهم ألا ننزل أبداً في المحطة الخطأ.
-            </div>
+            <div class="lesson"><strong>📌 الدرس المستفاد من القصة</strong><br>هناك عوالم وأبعاد تعيش بين طيات واقعنا، وقد نعبرها دون أن ندري... لكن الأهم ألا ننزل أبداً في المحطة الخطأ.</div>
             <div class="action-button-done" onclick="completeStoryAndGoBack()">لقد أنهيت القصة بنجاح! 🎉</div>
         </div>
         <!-- القصة 16 -->
@@ -581,10 +510,7 @@
             <div class="listen-btn" id="audioBtn16" onclick="toggleAudio(16)"><span id="btnContent16"><i class="fa-solid fa-play"></i> <span>تشغيل الصوت</span></span></div>
             <div class="tts-status" id="ttsStatus16"></div>
             <div class="story-container" id="storyText16"></div>
-            <div class="lesson">
-                <strong>📌 الدرس المستفاد من القصة</strong><br>
-                العقل المنعزل قد يخلق حقيقة بديلة كاملة ليهرب من ألم الوحدة، حتى يصبح الغريب الذي يخافه الآخرون.
-            </div>
+            <div class="lesson"><strong>📌 الدرس المستفاد من القصة</strong><br>العقل المنعزل قد يخلق حقيقة بديلة كاملة ليهرب من ألم الوحدة، حتى يصبح الغريب الذي يخافه الآخرون.</div>
             <div class="action-button-done" onclick="completeStoryAndGoBack()">لقد أنهيت القصة بنجاح! 🎉</div>
         </div>
         <!-- القصة 17 -->
@@ -594,10 +520,7 @@
             <div class="listen-btn" id="audioBtn17" onclick="toggleAudio(17)"><span id="btnContent17"><i class="fa-solid fa-play"></i> <span>تشغيل الصوت</span></span></div>
             <div class="tts-status" id="ttsStatus17"></div>
             <div class="story-container" id="storyText17"></div>
-            <div class="lesson">
-                <strong>📌 الدرس المستفاد من القصة</strong><br>
-                كم من الأصوات التي نسمعها يومياً هي حقيقية حقاً؟ وأي من العوالم التي نصدقها هي مجرد انعكاس لجدران عقولنا المريضة؟
-            </div>
+            <div class="lesson"><strong>📌 الدرس المستفاد من القصة</strong><br>كم من الأصوات التي نسمعها يومياً هي حقيقية حقاً؟ وأي من العوالم التي نصدقها هي مجرد انعكاس لجدران عقولنا المريضة؟</div>
             <div class="action-button-done" onclick="completeStoryAndGoBack()">لقد أنهيت القصة بنجاح! 🎉</div>
         </div>
         <!-- القصة 18 -->
@@ -607,10 +530,7 @@
             <div class="listen-btn" id="audioBtn18" onclick="toggleAudio(18)"><span id="btnContent18"><i class="fa-solid fa-play"></i> <span>تشغيل الصوت</span></span></div>
             <div class="tts-status" id="ttsStatus18"></div>
             <div class="story-container" id="storyText18"></div>
-            <div class="lesson">
-                <strong>📌 الدرس المستفاد من القصة</strong><br>
-                نخاف من الظلام مع أن أكثر الكوابيس رعباً لا تأتي من العتمة، بل من المساحات الفارغة التي نعتقد أنها آمنة.
-            </div>
+            <div class="lesson"><strong>📌 الدرس المستفاد من القصة</strong><br>نخاف من الظلام مع أن أكثر الكوابيس رعباً لا تأتي من العتمة، بل من المساحات الفارغة التي نعتقد أنها آمنة.</div>
             <div class="action-button-done" onclick="completeStoryAndGoBack()">لقد أنهيت القصة بنجاح! 🎉</div>
         </div>
         <!-- القصة 19 -->
@@ -620,20 +540,10 @@
             <div class="listen-btn" id="audioBtn19" onclick="toggleAudio(19)"><span id="btnContent19"><i class="fa-solid fa-play"></i> <span>تشغيل الصوت</span></span></div>
             <div class="tts-status" id="ttsStatus19"></div>
             <div class="story-container" id="storyText19"></div>
-            <div class="lesson">
-                <strong>📌 الدرس المستفاد من القصة</strong><br>
-                بعض النظرات تبقى محفورة في الذاكرة للأبد... خاصة تلك التي تشعر أنها تراك أنت أيضاً.
-            </div>
+            <div class="lesson"><strong>📌 الدرس المستفاد من القصة</strong><br>بعض النظرات تبقى محفورة في الذاكرة للأبد... خاصة تلك التي تشعر أنها تراك أنت أيضاً.</div>
             <div class="action-button-done" onclick="completeStoryAndGoBack()">لقد أنهيت القصة بنجاح! 🎉</div>
         </div>
-
     </div>
-    <!-- ========== نهاية حاوية الشاشات ========== -->
-
-    <!-- ========== زر قناة تيليغرام (خارج حاوية الشاشات) ========== -->
-    <a href="https://t.me/korean_with_luna" target="_blank" class="telegram-channel-btn">
-        📢 إنضم لقناتي لرؤية التحديثات
-    </a>
 
     <script>
         const quotes = [
@@ -667,7 +577,7 @@
         const installBanner = document.getElementById('installBanner');
         const floatingInstallBtn = document.getElementById('floatingInstallBtn');
         const DISMISS_KEY = 'installBannerDismissedAt';
-        const COOLDOWN = 7 * 24 * 60 * 60 * 1000; // 7 أيام
+        const COOLDOWN = 7 * 24 * 60 * 60 * 1000;
 
         function isDismissed() {
             const d = localStorage.getItem(DISMISS_KEY);
