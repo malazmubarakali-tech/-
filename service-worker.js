@@ -13,7 +13,7 @@
 // ============================================================
 
 const CACHE_NAME = 'korean-app-v8';
-const BASE = '/My-Korean-app/';
+const BASE = '/-/';
 
 // ===== الملفات المحلية =====
 const LOCAL_ASSETS = [
