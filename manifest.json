@@ -2,9 +2,9 @@
   "name": "تعلم الكورية واستعد للتوبيك",
   "short_name": "تعلم الكورية",
   "description": "تطبيق تفاعلي لتعلم اللغة الكورية والاستعداد لامتحان TOPIK عبر القصص والاستماع والكتابة والقراءة",
-  "id": "/My-Korean-app/",
-  "start_url": "/My-Korean-app/?source=pwa",
-  "scope": "/My-Korean-app/",
+  "id": "/-/",
+  "start_url": "/-/?source=pwa",
+  "scope": "/-/",
   "display": "standalone",
   "display_override": ["standalone", "minimal-ui", "browser"],
   "orientation": "portrait",
@@ -44,21 +44,21 @@
       "name": "القصص",
       "short_name": "القصص",
       "description": "تعلم عبر القصص الكورية",
-      "url": "/My-Korean-app/stories.html?source=shortcut",
+      "url": "/-/stories.html?source=shortcut",
       "icons": [{ "src": "icon-192.png", "sizes": "192x192" }]
     },
     {
       "name": "الاستماع",
       "short_name": "الاستماع",
       "description": "تدريبات الاستماع",
-      "url": "/My-Korean-app/listening-system.html?source=shortcut",
+      "url": "/-/listening-system.html?source=shortcut",
       "icons": [{ "src": "icon-192.png", "sizes": "192x192" }]
     },
     {
       "name": "الكتابة",
       "short_name": "الكتابة",
       "description": "تدريبات الكتابة الكورية",
-      "url": "/My-Korean-app/writing-system.html?source=shortcut",
+      "url": "/-/writing-system.html?source=shortcut",
       "icons": [{ "src": "icon-192.png", "sizes": "192x192" }]
     }
   ]
