@@ -2,11 +2,10 @@
   "name": "تعلم الكورية واستعد للتوبيك",
   "short_name": "تعلم الكورية",
   "description": "تطبيق تفاعلي لتعلم اللغة الكورية والاستعداد لامتحان TOPIK عبر القصص والاستماع والكتابة والقراءة",
-  "id": "/-/",
-  "start_url": "/-/?source=pwa",
-  "scope": "/-/",
+  "id": "https://malazmubarakali-tech.github.io/-/",
+  "start_url": "https://malazmubarakali-tech.github.io/-/",
+  "scope": "https://malazmubarakali-tech.github.io/-/",
   "display": "standalone",
-  "display_override": ["standalone", "minimal-ui", "browser"],
   "orientation": "portrait",
   "background_color": "#fce4ec",
   "theme_color": "#1a1a2e",
@@ -15,25 +14,25 @@
   "categories": ["education", "productivity"],
   "icons": [
     {
-      "src": "icon-192.png",
+      "src": "https://malazmubarakali-tech.github.io/-/icon-192.png",
       "sizes": "192x192",
       "type": "image/png",
       "purpose": "any"
     },
     {
-      "src": "icon-512.png",
+      "src": "https://malazmubarakali-tech.github.io/-/icon-512.png",
       "sizes": "512x512",
       "type": "image/png",
       "purpose": "any"
     },
     {
-      "src": "icon-192-maskable.png",
+      "src": "https://malazmubarakali-tech.github.io/-/icon-192-maskable.png",
       "sizes": "192x192",
       "type": "image/png",
       "purpose": "maskable"
     },
     {
-      "src": "icon-512-maskable.png",
+      "src": "https://malazmubarakali-tech.github.io/-/icon-512-maskable.png",
       "sizes": "512x512",
       "type": "image/png",
       "purpose": "maskable"
@@ -44,22 +43,22 @@
       "name": "القصص",
       "short_name": "القصص",
       "description": "تعلم عبر القصص الكورية",
-      "url": "/-/stories.html?source=shortcut",
-      "icons": [{ "src": "icon-192.png", "sizes": "192x192" }]
+      "url": "https://malazmubarakali-tech.github.io/-/stories.html",
+      "icons": [{ "src": "https://malazmubarakali-tech.github.io/-/icon-192.png", "sizes": "192x192", "type": "image/png" }]
     },
     {
       "name": "الاستماع",
       "short_name": "الاستماع",
       "description": "تدريبات الاستماع",
-      "url": "/-/listening-system.html?source=shortcut",
-      "icons": [{ "src": "icon-192.png", "sizes": "192x192" }]
+      "url": "https://malazmubarakali-tech.github.io/-/listening-system.html",
+      "icons": [{ "src": "https://malazmubarakali-tech.github.io/-/icon-192.png", "sizes": "192x192", "type": "image/png" }]
     },
     {
       "name": "الكتابة",
       "short_name": "الكتابة",
       "description": "تدريبات الكتابة الكورية",
-      "url": "/-/writing-system.html?source=shortcut",
-      "icons": [{ "src": "icon-192.png", "sizes": "192x192" }]
+      "url": "https://malazmubarakali-tech.github.io/-/writing-system.html",
+      "icons": [{ "src": "https://malazmubarakali-tech.github.io/-/icon-192.png", "sizes": "192x192", "type": "image/png" }]
     }
   ]
 }
