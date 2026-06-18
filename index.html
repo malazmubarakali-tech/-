@@ -131,6 +131,37 @@
             0%,100% { box-shadow: 0 8px 28px rgba(255,71,87,0.4); }
             50% { box-shadow: 0 14px 38px rgba(255,71,87,0.6), 0 0 0 12px rgba(255,107,107,0.08); }
         }
+
+        /* ✅ زر تيليغرام */
+        .telegram-channel-btn {
+            display: block;
+            margin: 18px auto 90px auto;
+            background: linear-gradient(135deg, #1a1a2e 0%, #2d2d4a 100%);
+            color: #ff6b9d;
+            border: 2.5px solid #ff6b9d;
+            padding: 14px 28px;
+            border-radius: 999px;
+            font-family: 'Tajawal', sans-serif;
+            font-weight: 700;
+            font-size: 14px;
+            cursor: pointer;
+            text-decoration: none;
+            text-align: center;
+            width: fit-content;
+            box-shadow: 0 8px 24px rgba(255,107,157,0.25), 0 2px 0 #ff6b9d;
+            animation: tgBounce 2.2s ease-in-out infinite;
+            transition: transform 0.15s ease, box-shadow 0.15s ease;
+            position: relative;
+            z-index: 10;
+        }
+        .telegram-channel-btn:active {
+            transform: scale(0.95) translateY(2px);
+            box-shadow: 0 3px 12px rgba(255,107,157,0.3), 0 1px 0 #ff6b9d;
+        }
+        @keyframes tgBounce {
+            0%, 100% { transform: translateY(0px); box-shadow: 0 8px 24px rgba(255,107,157,0.25), 0 2px 0 #ff6b9d; }
+            50%       { transform: translateY(-7px); box-shadow: 0 16px 32px rgba(255,107,157,0.35), 0 2px 0 #ff6b9d; }
+        }
     </style>
 </head>
 <body>
@@ -587,7 +618,14 @@
             </div>
             <div class="action-button-done" onclick="completeStoryAndGoBack()">لقد أنهيت القصة بنجاح! 🎉</div>
         </div>
+
     </div>
+    <!-- ========== نهاية حاوية الشاشات ========== -->
+
+    <!-- ========== زر قناة تيليغرام (خارج حاوية الشاشات) ========== -->
+    <a href="https://t.me/korean_with_luna" target="_blank" class="telegram-channel-btn">
+        📢 إنضم لقناتي لرؤية التحديثات
+    </a>
 
     <script>
         const quotes = [
